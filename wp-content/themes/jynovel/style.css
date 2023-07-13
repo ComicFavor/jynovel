@@ -1,0 +1,88 @@
+/*
+  Theme Name: 瑾瑜主题
+  Theme URI: http://www.yiqiread.com
+  Description: 快速搭建小说网站的wordpress主题
+  Author: 王一乙
+  Author URI: http://www.yiqiread.com
+  Details URI: http://www.yiqiread.com
+  Version: 0.0.1
+  License:
+  License URI: http://www.gnu.org/licenses/gpl-2.0.html
+  Tags: 主题
+*/
+
+/* 把我们所有标签的内外边距清零 */
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+  margin: 0;
+  padding: 0
+}
+
+/* em 和 i 斜体的文字不倾斜 */
+em,
+i {
+  font-style: normal
+}
+
+/* 去掉每个li前面的小圆点 */
+li {
+  list-style: none
+}
+
+
+img {
+  border: 0;/* 为了照顾低版本浏览器,如果 图片的外面包含了链接 会出现边框的问题 */
+  vertical-align: middle /* 解决图片底侧出现空白缝隙的问题 */
+}
+
+
+button {
+  cursor: pointer /* 当我们鼠标经过button时,鼠标变成小手的样子 */
+}
+
+a {
+  color: #666;
+  text-decoration: none
+}
+
+a:hover {
+  color: #c81623
+}
+
+button,
+input {
+  font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif
+}
+
+body {
+  /* 抗锯齿性,避免文字被放大后会产生锯齿 */
+  -webkit-font-smoothing: antialiased;
+  background-color: #fff;
+  /* 12px/1.5 表示所有字体的大小为12px,1.5倍的行高 */
+  /* "\5B8B\4F53" 代表的是宋体，用这种方式，浏览器的兼容性会比较好。 把中文字体的名称用相应的Unicode编码来代替，这样就可以有效地避免浏览器解释CSS代码时出现乱码的情况*/
+  font: 16px/1.5 Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
+  color: #666
+}
+
+.hide,
+.none {
+  display: none
+}
+
+/* 清除浮动用 */
+.clearfix:after {
+  visibility: hidden;
+  clear: both;
+  display: block;
+  content: ".";
+  height: 0
+}
+
+/* .clearfix {
+  *zoom: 1
+} */
+
+.menu-item a {
+  padding: .5rem 1rem;
+  text-decoration: none;
+  color: black !important;
+}
