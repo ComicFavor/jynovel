@@ -7,6 +7,24 @@
       <?php
       while (have_posts()) {
           the_post();
+
+          //显示文章的分类列表
+          $category = get_the_category();//获取文章所属分类的信息,返回数组
+          if ($category[0]) {
+              $posts = get_posts(array(
+                  'category' => $category[0]->cat_ID,//显示哪个分类下的文章
+                  'numberposts' => 10,//显示的文章数量
+              ));
+              if(!empty($posts)){
+                  echo "<div class='single-posts'><h4>你可能感兴趣的文章：</h4><ul>";
+                  foreach ($posts as $post) {
+                      echo '<li class="single-posts-li"><a title="'.$post->post_title.'" href="'.get_permalink($post->ID).'">'.$post->post_title.'</a></li>';
+                  }
+                  echo "</ul></div>";
+              }
+          }
+
+          echo "<br/>";
           
           the_title('<h1 class="post-title text-center">','</h1>');//输出文章标题,并用H1标签包裹
 
