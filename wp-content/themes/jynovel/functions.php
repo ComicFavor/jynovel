@@ -77,4 +77,24 @@ function set_post_views () {
  
 }  
 add_action('get_header', 'set_post_views');
+
+
+// 通用方法
+function get_categories_by_tag ( $tag ) {
+  $tag = ''; //tag标签名
+  $args=array(
+    'tag' => $tag,
+    'showposts'=>1, //文章数量
+    'caller_get_posts'=>1
+  );
+  $my_query = new WP_Query($args);
+  if( $my_query->have_posts() ) {
+    
+    while ($my_query->have_posts()) : 
+      $post=$my_query->the_post();
+      return wp_get_post_categories( $post->ID );
+    endwhile;
+  } 
+  wp_reset_query(); 
+}
 ?>

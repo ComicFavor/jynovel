@@ -25,6 +25,9 @@
           }
 
           echo "<br/>";
+          $tags = get_the_terms( get_the_ID(), 'post_tag');
+          $tag = $tags[0]->name;
+          echo "<p>test: $tag</p>";
           
           the_title('<h1 class="post-title text-center">','</h1>');//输出文章标题,并用H1标签包裹
 

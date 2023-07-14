@@ -28,46 +28,48 @@
 		<div class="all-book-list">
 			<div class="book-img-text" id="book-img-text">
 				<ul class="all-img-list cf">
-                    <?php 
-                    $categories = get_categories();
-                    foreach ($categories as $category) {
-                        $categoryName = $category->name
-                    ?>
-					<li data-rid="1">
-						<div class="book-img-box">
-							<a href="//www.qidian.com/book/1031940621/" data-bid="1031940621" data-eid="qd_B57" target="_blank">
-								<img src="https://images.bookuu.com/book/C/01229/97875511000382057419-fm.jpg" alt="<?php echo $categoryName ?>在线阅读">
-							</a>
-						</div>
-						<div class="book-mid-info">
-							<h2>
-								<a href="//www.qidian.com/book/1031940621/" target="_blank" data-eid="qd_B58" data-bid="1031940621" title="<?php echo $categoryName ?>最新章节在线阅读">
-                                    <?php echo $categoryName ?>
-                                </a>
-							</h2>
-							<p class="author">
-								<img src="//qdfepccdn.qidian.com/www.qidian.com/images/user.bcb60..png">
-								<a class="name" href="//my.qidian.com/author/9639927/" data-eid="qd_B59" target="_blank">吴承恩</a>
-								<em>|</em>
-								<a href="//www.qidian.com/kehuan/" target="_blank" data-eid="qd_B60">仙侠</a>
-								<i>·</i>
-								<a class="go-sub-type" data-typeid="9" data-subtypeid="252" href="//www.qidian.com/all/chanId9-subCateId252/" data-eid="qd_B61">封神</a>
-								<em>|</em>
-								<span>完结</span>
-							</p>
-							<p class="intro"> <?php echo $category->description ?> </p>
-							<p class="update">
-								<span>
-									<style>@font-face { font-family: ajGsoRMb; src: url('https://qidian.gtimg.com/qd_anti_spider/ajGsoRMb.eot?') format('eot'); src: url('https://qidian.gtimg.com/qd_anti_spider/ajGsoRMb.woff') format('woff'), url('https://qidian.gtimg.com/qd_anti_spider/ajGsoRMb.ttf') format('truetype'); } .ajGsoRMb { font-family: 'ajGsoRMb' !important;     display: initial !important; color: inherit !important; vertical-align: initial !important; }</style>
-									<span class="ajGsoRMb">𘜋𘜆𘜌𘜑𘜍𘜌</span>万字 <em>|</em>
-									<a href="//www.qidian.com/chapter/1031940621/759853797/" title="第一百章问话">第一百章问话</a>
-								</span>
-							</p>
-						</div>
-					</li>
-                    <?php                                            
-                    }
-                    ?>
+					<?php 
+						$tags = get_tags();
+						foreach ($tags as $tag) {
+								$tagName = $tag->name;
+								$category=get_categories_by_tag($tagName);
+
+					?>
+						<li data-rid="1">
+							<div class="book-img-box">
+								<a href="//www.qidian.com/book/1031940621/" data-bid="1031940621" data-eid="qd_B57" target="_blank">
+									<img src="https://images.bookuu.com/book/C/01229/97875511000382057419-fm.jpg" alt="<?php echo $tagName ?>在线阅读">
+								</a>
+							</div>
+							<div class="book-mid-info">
+								<h2>
+									<a href="//www.qidian.com/book/1031940621/" target="_blank" data-eid="qd_B58" data-bid="1031940621" title="<?php echo $categoryName ?>最新章节在线阅读">
+																			<?php echo $tagName ?>
+																	</a>
+								</h2>
+								<p class="author">
+									<img src="//qdfepccdn.qidian.com/www.qidian.com/images/user.bcb60..png">
+									<a class="name" href="//my.qidian.com/author/9639927/" data-eid="qd_B59" target="_blank">吴承恩</a>
+									<em>|</em>
+									<a href="//www.qidian.com/kehuan/" target="_blank" data-eid="qd_B60"><?php echo $category->name ?></a>
+									<i>·</i>
+									<a class="go-sub-type" data-typeid="9" data-subtypeid="252" href="//www.qidian.com/all/chanId9-subCateId252/" data-eid="qd_B61">封神</a>
+									<em>|</em>
+									<span>完结</span>
+								</p>
+								<p class="intro"> <?php echo $tag->description ?> </p>
+								<p class="update">
+									<span>
+										<style>@font-face { font-family: ajGsoRMb; src: url('https://qidian.gtimg.com/qd_anti_spider/ajGsoRMb.eot?') format('eot'); src: url('https://qidian.gtimg.com/qd_anti_spider/ajGsoRMb.woff') format('woff'), url('https://qidian.gtimg.com/qd_anti_spider/ajGsoRMb.ttf') format('truetype'); } .ajGsoRMb { font-family: 'ajGsoRMb' !important;     display: initial !important; color: inherit !important; vertical-align: initial !important; }</style>
+										<span class="ajGsoRMb">𘜋𘜆𘜌𘜑𘜍𘜌</span>万字 <em>|</em>
+										<a href="//www.qidian.com/chapter/1031940621/759853797/" title="第一百章问话">第一百章问话</a>
+									</span>
+								</p>
+							</div>
+						</li>
+					<?php                                            
+						}
+					?>
 				</ul>
 			</div>
 		</div>
