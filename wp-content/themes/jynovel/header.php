@@ -11,8 +11,8 @@
 <body <?php body_class(); ?> style="zoom: 1">
   <div class="wrap">
     <?php 
-      get_template_part( 'template-parts/home/ads' );
-      get_template_part( 'template-parts/home/logo' );
-      get_template_part( 'template-parts/home/main-nav' );
+      // get_template_part( 'template-parts/common/ads' );
+      get_template_part( 'template-parts/common/logo' );
+      get_template_part( 'template-parts/common/main-nav' );
     ?>
   </div>  

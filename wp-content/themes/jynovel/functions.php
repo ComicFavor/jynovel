@@ -2,26 +2,26 @@
 
 //注册导航栏菜单
 register_nav_menus(array(
-    'PrimaryMenu'=>'导航',//左边是别名,右边是后台菜单界面显示的名字
+    'top_nav'=>'顶部导航',//左边是别名,右边是后台菜单界面显示的名字
     'friendlinks'=>'友情链接',
     'footer_nav'=>'页脚导航'));
 add_theme_support('nav_menus'); 
 
 // 给菜单栏的li标签添加class
-function addli_menu_classes($classes, $item, $args) {
-  if($args->theme_location == 'PrimaryMenu') { //这里的 PrimaryMenu 是填写菜单别名
-     $classes[] = 'nav-item'; //这里的 nav-item 是要添加的class类
-  }
-  return $classes;
- }
-add_filter('nav_menu_css_class','addli_menu_classes',1,3);
+// function addli_menu_classes($classes, $item, $args) {
+//   if($args->theme_location == 'PrimaryMenu') { //这里的 PrimaryMenu 是填写菜单别名
+//      $classes[] = 'nav-item'; //这里的 nav-item 是要添加的class类
+//   }
+//   return $classes;
+//  }
+// add_filter('nav_menu_css_class','addli_menu_classes',1,3);
 
 // 给菜单栏的a标签添加class
-function adda_menu_link_atts( $atts, $item, $args ) {
-$atts['class'] = 'nav-link';
-return $atts;
-}
-add_filter( 'nav_menu_link_attributes', 'adda_menu_link_atts', 10, 3 );
+// function adda_menu_link_atts( $atts, $item, $args ) {
+// $atts['class'] = 'nav-link';
+// return $atts;
+// }
+// add_filter( 'nav_menu_link_attributes', 'adda_menu_link_atts', 10, 3 );
 
 // 自定义侧边栏
 function my_custom_sidebar() {
@@ -80,20 +80,58 @@ add_action('get_header', 'set_post_views');
 
 
 // 通用方法
-function get_categories_by_tag ( $tag ) {
-  $tag = ''; //tag标签名
+function print_log ($log) {
+  var_dump($log);
+}
+
+function get_suggest_posts () {
+  $args = array(
+    'showposts'=>1, //文章数量
+    'caller_get_posts'=>1
+  );
+
+  $my_query = new WP_Query($args);
+
+  if( $my_query->have_posts() ) {
+    while ($my_query->have_posts()) {
+      $my_query->the_post();
+      return get_post();
+    }
+  } 
+  
+  wp_reset_query();
+}
+
+function get_latest_post_by_tag ( $tag ) {
   $args=array(
     'tag' => $tag,
     'showposts'=>1, //文章数量
     'caller_get_posts'=>1
   );
   $my_query = new WP_Query($args);
+
   if( $my_query->have_posts() ) {
-    
-    while ($my_query->have_posts()) : 
-      $post=$my_query->the_post();
-      return wp_get_post_categories( $post->ID );
-    endwhile;
+    while ($my_query->have_posts()) {
+      $my_query->the_post();
+      return get_post();
+    }
+  } 
+  wp_reset_query(); 
+}
+
+function get_categories_by_tag ( $tag ) {
+  $args=array(
+    'tag' => $tag,
+    'showposts'=>1, //文章数量
+    'caller_get_posts'=>1
+  );
+  $my_query = new WP_Query($args);
+
+  if( $my_query->have_posts() ) {
+    while ($my_query->have_posts()) {
+      $my_query->the_post();
+      return get_the_category();
+    }
   } 
   wp_reset_query(); 
 }
