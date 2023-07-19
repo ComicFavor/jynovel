@@ -1,34 +1,40 @@
-<div class="main-nav-wrap" data-l1="3">
-	<?php 
-		if (function_exists('wp_nav_menu')) {
-			wp_nav_menu( array(
-				'theme_location' => 'top_nav', 
-				'container_id' => 'top-nav',
-				'container_class' => 'main-nav box-center cf',
-				'menu_class' => 'nav-li'
-			) );
+<nav class="clear">
+	<ul class="nav_1 clear">
+		<div class="active"></div>
+		<li><a href="<?php echo get_home_url() ?>">首页</a></li>
+
+		<?php 
+			$categories = get_categories(array(
+				'hide_empty' => 0,
+				'parent' => 0
+			));
+			if ($categories) {
+				foreach ($categories as $category) {
+					if ($category->name == '未分类') continue;
+		?>					
+				<!-- <li><a href="<?php echo get_category_link($category->term_id) ?>"><?php echo $category->name ?></a> -->
+				<li><a href="#"><?php echo $category->name ?></a>
+		<?php 		
+				$sub_categories = get_categories(array(
+					'hide_empty' => 0,
+					'parent' => $category->term_id
+				));
+
+				if ($sub_categories) {
+		?>
+				<ul class="clear">
+		<?php 
+					foreach ($sub_categories as $sub_category) {
+		?>
+						<li><a href="<?php echo get_category_link($sub_category->term_id) ?>"><?php echo $sub_category->name ?></a></li>
+		<?php 
+					}
+		?>
+				</ul>
+		<?php 
+				}
+			}
 		}
-
-	?>
-
-
-	<!-- <div class="main-nav box-center cf" id="type-hover">
-		<ul>
-			<li class="nav-li">
-				<a href="//www.qidian.com/all/" data-eid="qd_A15" class="act">小说</a>
-			</li>
-			<li class="nav-li">
-				<a href="//www.qidian.com/rank/" data-eid="qd_A16">诗歌</a>
-			</li>
-			<li class="nav-li">
-				<a href="//www.qidian.com/finish/" data-eid="qd_A17">书城</a>
-			</li>
-			<li class="nav-li">
-				<a href="//www.qidian.com/free/" data-eid="qd_A18">新闻</a>
-			</li>
-			<li class="nav-li">
-				<a href="//www.qidian.com/soushu/" target="_blank" data-eid="qd_A13">搜索</a>
-			</li>
-		</ul>
-	</div> -->
-</div>
+		?>
+	</ul>
+</nav> <!--导航结束-->

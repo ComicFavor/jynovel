@@ -84,6 +84,43 @@ function print_log ($log) {
   var_dump($log);
 }
 
+// 在分类页面获取父级分类
+function get_parent_category_in_category_page() : WP_Term {
+  $current_category = get_the_category()[0];
+  $master_category_id = $current_category->parent;
+  $master_category = get_term($master_category_id);
+
+  return $master_category;
+}
+
+// 根据分类获取标签
+function get_tags_by_category($category_id) {
+  $custom_query = new WP_Query( array(
+    'posts_per_page' => -1,
+    'cate' => $category_id
+  ));
+
+  $all_tag_ids = array();
+
+  if ( $custom_query->have_posts() ) :
+    while ( $custom_query->have_posts() ) : $custom_query->the_post();
+      $posttags = get_the_tags();
+      if ( $posttags ) {
+        foreach( $posttags as $tag ) {
+          if (in_array($tag->term_id, $all_tag_ids)) continue;
+          $all_tag_ids[] = $tag->term_id;
+        }
+      }
+    endwhile;
+  endif;
+
+  foreach($all_tag_ids as $tag_id) {
+    $all_tags[] = get_tag($tag_id);
+  }
+
+  return $all_tags;
+} 
+
 function get_suggest_posts () {
   $args = array(
     'showposts'=>1, //文章数量
