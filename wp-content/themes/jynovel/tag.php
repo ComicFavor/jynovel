@@ -1,5 +1,4 @@
-<?php get_header(); ?>
-
-<p>这是内容</p>
+<?php get_template_part( 'template-parts/tag/header' ) ?>
+<?php get_template_part( 'template-parts/tag/body' ) ?>
 
 <?php get_footer(); ?>

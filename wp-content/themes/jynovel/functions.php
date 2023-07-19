@@ -86,7 +86,7 @@ function print_log ($log) {
 
 // 在分类页面获取父级分类
 function get_parent_category_in_category_page() : WP_Term {
-  $current_category = get_the_category()[0];
+  $current_category = get_queried_object();
   $master_category_id = $current_category->parent;
   $master_category = get_term($master_category_id);
 

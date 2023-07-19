@@ -2,8 +2,9 @@
    <div class="position">
     <a href="<?php echo get_home_url() ?>">首页</a>
     <?php 
-      $current_category = get_the_category()[0];
-      $master_category = get_the_category()[1];
+      $current_category = get_queried_object();
+      $master_category_id = $current_category->parent;
+      $master_category = get_term($master_category_id);
     ?>
      > 
     <a href="#"><?php echo $master_category->name ?></a>
@@ -17,7 +18,7 @@
       foreach($tags as $tag) {
     ?> 
         <li class="ease">
-          <a href="javascript:;"><img src="https://images.bookuu.com/book/C/01229/97875511000382057419-fm.jpg"></a>
+          <a href="<?php echo get_term_link($tag->term_id) ?>"><img src="https://images.bookuu.com/book/C/01229/97875511000382057419-fm.jpg"></a>
           <p class="s_n"><a href="<?php echo get_term_link($tag->term_id) ?>"><?php echo $tag->name ?></a></p>
         </li>
     <?php 
