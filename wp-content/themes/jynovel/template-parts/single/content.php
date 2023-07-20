@@ -27,6 +27,8 @@
   </div>
   <div class="prenext">
     <?php 
+      // $prev_post = get_prev_charpter($post);
+      // $next_post = get_next_charpter($post);
       $prev_post = get_previous_post(true, "", "post_tag");
       $next_post = get_next_post(true, "", "post_tag");
 

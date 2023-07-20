@@ -160,18 +160,63 @@ function get_latest_post_by_tag ( $tag ) {
   wp_reset_query(); 
 }
 
-function get_categories_by_tag ( $tag ) {
+function get_category_by_tag (WP_Term $tag ) {
   $args=array(
-    'tag' => $tag,
+    'tag' => $tag->name,
     'showposts'=>1, //文章数量
     'caller_get_posts'=>1
   );
   $my_query = new WP_Query($args);
-
   if( $my_query->have_posts() ) {
     while ($my_query->have_posts()) {
       $my_query->the_post();
-      return get_the_category();
+      return get_the_category()[0];
+    }
+  } 
+  wp_reset_query(); 
+}
+
+// 获取父级分类
+function get_parent_category(WP_Term $category): WP_Term {
+  return get_category($category->parent);
+}
+
+// 获取小说章数
+function get_tag_post_count_by_id( $tag_id ) {
+  $tag = get_term_by( 'id', $tag_id, 'post_tag' );
+ _make_cat_compat( $tag );
+  return $tag->count;
+}
+
+function get_prev_charpter(WP_Post $post) {
+  $args=array(
+    'tag' => $post->tags_input[0],
+    'showposts'=>1, //文章数量,
+    'orderby' => 'ID',
+    'order' => 'DESC'
+  );
+  $my_query = new WP_Query($args);
+  if( $my_query->have_posts() ) {
+    while ($my_query->have_posts()) {
+      $my_query->the_post();
+      return get_post();
+    }
+  } 
+  wp_reset_query(); 
+}
+
+function get_next_charpter(WP_Post $post) {
+  $args=array(
+    'tag' => $post->tags_input[0],
+    'showposts'=>1, //文章数量,
+    'orderby' => 'ID',
+    'order' => 'ASC'
+  );
+  $my_query = new WP_Query($args);
+  if( $my_query->have_posts() ) {
+    while ($my_query->have_posts()) {
+      $my_query->the_post();
+      return get_post();
     }
   } 
   wp_reset_query(); 

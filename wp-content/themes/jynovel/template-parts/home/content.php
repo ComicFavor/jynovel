@@ -11,12 +11,11 @@
           $author = get_the_author_meta('display_name', $post->post_author);
           $post_url = get_post_permalink($post);
           $post_title = $post->post_title;
-          $categories=get_categories_by_tag($tag_name);
-          $master_category = $categories[1];
-          $sub_category = $categories[0];
+          $category = get_category_by_tag($tag);
+          $master_category = get_parent_category($category);
       ?>
-        <li><a href="javascript:;"><img src="https://images.bookuu.com/book/C/01229/97875511000382057419-fm.jpg"></a>
-          <p><a href="javascript:;"><?php echo $tag_name ?></a></p>
+        <li><a href="<?php echo $tag_url?>"><img src="https://images.bookuu.com/book/C/01229/97875511000382057419-fm.jpg"></a>
+          <p><a href="<?php echo $tag_url?>"><?php echo $tag_name ?></a></p>
         </li>
       <?php 
         }
@@ -37,15 +36,12 @@
         $post_url = get_post_permalink($post);
         $post_title = $post->post_title;
         $post_last_modified_time = $post->post_modified;
-        $categories = get_categories_by_tag($tag_name);
-        $master_category = $categories[1];
-        $sub_category = $categories[0];
-        $sub_category_name = $sub_category->name;
-        $sub_category_url = get_category_link($sub_category->term_id);
+        $category = get_category_by_tag($tag);
+        $master_category = get_parent_category($category);
         ?>
         <li><a href="<?php echo $tag_url ?>"><span class="icon_span"></span></a>
-          <a href="<?php echo $sub_category_url ?>"><b>[
-              <?php echo $sub_category_name ?> ]
+          <a href="<?php echo get_category_link($category) ?>"><b>[
+              <?php echo $category->name ?> ]
             </b></a>
           <a href="<?php echo $tag_url ?>"><strong>
               <?php echo $tag_name ?>

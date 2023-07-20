@@ -1,14 +1,15 @@
 <div class="list">
   <div class="pos">
-     当前位置：<a href="javascript:;">首页</a>
+     当前位置：<a href="<?php echo get_home_url()?>">首页</a>
       > 
       <?php 
         $tag = get_queried_object();
-        $categories = get_categories_by_tag($tag->name);
+        $category = get_category_by_tag($tag);
+        $master_category = get_parent_category($category);
       ?>
-      <a href="<?php echo get_term_link($categories[1]->term_id) ?>"><?php echo $categories[1]->name ?></a>
+      <a href="<?php echo get_term_link($master_category->term_id) ?>"><?php echo $master_category->name ?></a>
        > 
-      <a href="<?php echo get_term_link($categories[0]->term_id) ?>"><?php echo $categories[0]->name ?></a>
+      <a href="<?php echo get_term_link($category->term_id) ?>"><?php echo $category->name ?></a>
       > 
       <?php echo $tag->name ?>
   </div>
@@ -16,7 +17,7 @@
 
  <ul class="tab clear">
      <li class="active"><a href="#">简介</a></li>
-     <li><a href="#">章节目录<b>(20)</b></a></li>
+     <li><a href="#">章节目录<b>(<?php echo get_tag_post_count_by_id($tag->term_id)?>)</b></a></li>
  </ul>
   <div class="tab_1">
     <div class="info clear">
@@ -43,12 +44,13 @@
   </div><!--简介介绍-->
   
   <div class="tab_1">
-     <div class="tit">章节目录<b>(20)</b></div>
+     <div class="tit">章节目录<b>(<?php echo get_tag_post_count_by_id($tag->term_id)?>)</b></div>
      <div class="info_1">
          <ul class="clear">
           <?php 
             $args=array(
               'tag' => $tag->name,
+              'posts_per_page' => -1,
               'orderby' => 'name',
               'order' => 'ASC'
             );
@@ -68,7 +70,7 @@
 
          </ul>
      </div>
-     <div  id="up" class="clear"><a href="javascript:;"><samp>查看全部</samp><span class="icon ease"></span></a></div>
+     <!-- <div  id="up" class="clear"><a href="javascript:;"><samp>查看全部</samp><span class="icon ease"></span></a></div> -->
   </div><!--章节目录-->
   
 </div><!--左边结束-->
