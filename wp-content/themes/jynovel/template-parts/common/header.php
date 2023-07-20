@@ -1,9 +1,9 @@
 <header class="clear">
   <img src="<?php echo get_template_directory_uri( ); ?>/img/logo.jpg">
   <div class="logo">
-    <h1>一起读书网</h1>
+    <h1><?php echo bloginfo('name') ?></h1>
     <div class="clear"></div>
-    <p>一起阅读，一起鉴赏</p>
+    <p>一起阅读，共同鉴赏</p>
   </div>
   <div class="search left">
     <form action="" method="get">

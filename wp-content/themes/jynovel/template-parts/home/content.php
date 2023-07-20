@@ -1,5 +1,3 @@
-<?php get_template_part('template-parts/home/banner') ?>
-
 <div class="box">
   <div class="box_1 box_con">
     <h3>编者推荐</h3>

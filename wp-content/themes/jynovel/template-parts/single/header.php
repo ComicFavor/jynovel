@@ -7,9 +7,10 @@
   <title><?php echo bloginfo('name') ?></title>
 
   <link  href="<?php echo get_template_directory_uri(); ?>/css/css.css" rel="stylesheet" type="text/css">
-  <link  href="<?php echo get_template_directory_uri(); ?>/css/index_article.css" rel="stylesheet" type="text/css">
+  <link  href="<?php echo get_template_directory_uri(); ?>/css/article3.css" rel="stylesheet" type="text/css">
   <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.js"></script>
   <script src="<?php echo get_template_directory_uri(); ?>/js/js.js"></script>
+  <script src="<?php echo get_template_directory_uri(); ?>/js/article3.js"></script>
 
 </head>
 <body>

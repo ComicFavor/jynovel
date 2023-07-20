@@ -88,8 +88,12 @@ function print_log ($log) {
 function get_parent_category_in_category_page() : WP_Term {
   $current_category = get_queried_object();
   $master_category_id = $current_category->parent;
-  $master_category = get_term($master_category_id);
 
+  if ($master_category_id)
+    $master_category = get_term($master_category_id);
+  else
+    $master_category = $current_category;
+    
   return $master_category;
 }
 
