@@ -62,14 +62,14 @@
      <div class="info_1">
          <ul class="clear">
           <?php 
+            $tag = get_queried_object();
             $args=array(
-              'tag' => $tag->name,
+              'tag_id' => $tag->term_id,
               'posts_per_page' => -1,
-              'orderby' => 'name',
+              'orderby' => 'ID',
               'order' => 'ASC'
             );
             $my_query = new WP_Query($args);
-
             if( $my_query->have_posts() ) {
               while ($my_query->have_posts()) {
                 $my_query->the_post();
