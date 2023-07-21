@@ -14,7 +14,7 @@
           $category = get_category_by_tag($tag);
           $master_category = get_parent_category($category);
       ?>
-        <li><a href="<?php echo $tag_url?>"><img src="https://images.bookuu.com/book/C/01229/97875511000382057419-fm.jpg"></a>
+        <li><a href="<?php echo $tag_url?>"><img src="<?php echo get_cover_url($tag) ?>"></a>
           <p><a href="<?php echo $tag_url?>"><?php echo $tag_name ?></a></p>
         </li>
       <?php 

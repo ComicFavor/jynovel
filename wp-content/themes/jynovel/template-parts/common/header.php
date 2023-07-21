@@ -13,13 +13,26 @@
     <?php get_search_form() ?>
     <p class="left">
       <span>热门推荐：</span>
-      <a href="javascript:;">原来你还在这里</a>
-      <a href="javascript:;">原来你还在这里</a>
-      <a href="javascript:;">原来你还在这里</a>
-      <a href="javascript:;">原来你还在这里</a>
+      <?php 
+        $count = 0;
+        $tags = get_tags();
+        foreach ($tags as $tag) {
+          $recommended = get_field('recommended', 'post_tag_'.$tag->term_id);
+          if ($recommended) {
+            
+    ?>
+            <a href="<?php echo get_term_link($tag->term_id) ?>"><?php echo $tag->name ?></a>
+    <?php
+            $count++;
+            if($count == 4) break;
+          }
+          
+        }
+      
+      ?>
     </p>
   </div>
-  <div class="reg">
+  <!-- <div class="reg">
     <div class="delu2 clear">
       <div class="self ease">
         <a href="javascript:;" class="clear">雪剑无影<span class="icon ease"></span></a>
@@ -36,5 +49,5 @@
     </div>
     <span>|</span>
     <a href="tousu.html">意见反馈</a>
-  </div>
+  </div> -->
 </header><!--头部结束-->

@@ -39,7 +39,7 @@ header .search input[type=submit]{ background-color:#16A1E7;color:#fff; width:10
 header .search input[type=submit]:hover{  background: -webkit-linear-gradient(top, #18A4EA,#09F, #16A1E7);
                                           background: -webkit-gradient(linear, 0% 100%, 0% 100%, from(#18A4EA), 50%(#09F), to(#16A1E7));
 										  background: -moz-linear-gradient(top,#18A4EA,#09F,#16A1E7); }
-header .search p{ font-size:12px; width:100%; margin-top:10px;}
+header .search p{ font-size:12px; width:100%; margin-top:10px; text-align: left;}
 header .search p a{ margin:0 5px;}
 
 header .reg{ float:right; margin-top:8px;}

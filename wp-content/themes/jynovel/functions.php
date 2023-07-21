@@ -98,32 +98,38 @@ function get_parent_category_in_category_page() : WP_Term {
 }
 
 // 根据分类获取标签
-function get_tags_by_category($category_id) {
-  $custom_query = new WP_Query( array(
-    'posts_per_page' => -1,
-    'cate' => $category_id
+function get_page_of_tags_by_category($category_name) {
+  $tags = get_tags(array(
+    'meta_query' => array(
+      'key' => 'category',
+      'value' => $category_name,
+      'compare' => '=='
+    )
   ));
 
-  $all_tag_ids = array();
-
-  if ( $custom_query->have_posts() ) :
-    while ( $custom_query->have_posts() ) : $custom_query->the_post();
-      $posttags = get_the_tags();
-      if ( $posttags ) {
-        foreach( $posttags as $tag ) {
-          if (in_array($tag->term_id, $all_tag_ids)) continue;
-          $all_tag_ids[] = $tag->term_id;
-        }
-      }
-    endwhile;
-  endif;
-
-  foreach($all_tag_ids as $tag_id) {
-    $all_tags[] = get_tag($tag_id);
-  }
-
-  return $all_tags;
+  return floor(count($tags) / 10) + 1;
 } 
+
+// 根据分类获取标签
+function get_tags_by_category_paging($category_name, $offset) {
+  $tags = get_tags(array(
+    'orderby' => 'name',
+    'order' => 'ASC',
+    'number' => 10, //每页数量
+    'offset' => $offset,
+    'meta_query' => array(
+      'key' => 'category',
+      'value' => $category_name,
+      'compare' => '=='
+    )
+  ));
+
+  return $tags;
+} 
+
+function get_cover_url (WP_Term $tag) {
+  return get_field('cover_url', 'post_tag_' . $tag->term_id);
+}
 
 function get_suggest_posts () {
   $args = array(
@@ -161,24 +167,13 @@ function get_latest_post_by_tag ( $tag ) {
 }
 
 function get_category_by_tag (WP_Term $tag ) {
-  $args=array(
-    'tag' => $tag->name,
-    'showposts'=>1, //文章数量
-    'caller_get_posts'=>1
-  );
-  $my_query = new WP_Query($args);
-  if( $my_query->have_posts() ) {
-    while ($my_query->have_posts()) {
-      $my_query->the_post();
-      return get_the_category()[0];
-    }
-  } 
-  wp_reset_query(); 
+  $category_name = get_field('category', 'post_tag_' . $tag->term_id);
+  return get_term_by('name', $category_name, 'category');
 }
 
 // 获取父级分类
 function get_parent_category(WP_Term $category) {
-  return get_category($category->parent);
+  return get_term_by('term_id', $category->parent, 'category');
 }
 
 // 获取小说章数

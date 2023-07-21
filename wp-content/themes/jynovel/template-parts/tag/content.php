@@ -21,7 +21,7 @@
  </ul>
   <div class="tab_1">
     <div class="info clear">
-     <img src="https://images.bookuu.com/book/C/01229/97875511000382057419-fm.jpg" class="left" style="margin-right:20px;width:150px;"> 
+     <img src="<?php echo get_cover_url($tag) ?>" class="left" style="margin-right:20px;width:150px;"> 
       <p class="left" style="width:580px; overflow:hidden;"><?php echo $tag->description ?></p>
      </div>
      <div class="fx clear">

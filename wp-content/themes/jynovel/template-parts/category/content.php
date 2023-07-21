@@ -12,23 +12,31 @@
     <a href="<?php get_term_link($current_category->term_id) ?>" class="acative"><?php echo $current_category->name ?></a></div>
    <ul class="con_list clear">
     <?php 
-      $current_category = get_the_category()[0];
-      
-      $tags = get_tags_by_category($current_category->term_id);
-      foreach($tags as $tag) {
+      $count_of_page = get_page_of_tags_by_category($current_category);
+
+      $url = add_query_arg(array('page' => 1));
+
+      $page = get_query_var('page');
+
+      if(!$page) $page = 1;
+
+      $tags = get_tags_by_category_paging($current_category->name, (int)$page - 1);
+      if($tags) {
+        foreach($tags as $tag) {
     ?> 
         <li class="ease">
-          <a href="<?php echo get_term_link($tag->term_id) ?>"><img src="https://images.bookuu.com/book/C/01229/97875511000382057419-fm.jpg"></a>
+          <a href="<?php echo get_term_link($tag->term_id) ?>"><img src="<?php echo get_cover_url($tag) ?>"></a>
           <p class="s_n"><a href="<?php echo get_term_link($tag->term_id) ?>"><?php echo $tag->name ?></a></p>
         </li>
     <?php 
+        }
       }
     ?>
    </ul>
    <!--列表内容-->
    
    <ul class="page clear">
-        <li>首页</li>
+        <li><a href="<?php echo add_query_arg(array('page' => 1));?>">首页</a></li>
         <li>上一页</li>
         <li><a href="javascript:;" class="thispage">1</a></li>
         <li><a href="javascript:;">2</a></li>
@@ -36,14 +44,7 @@
         <li><a href="javascript:;">4</a></li>
         <li><a href="javascript:;">5</a></li>
         <li><a href="javascript:;">下一页</a></li>
-       <li><a href="javascript:;">尾页</a></li>
-       <li class="tz"><select>
-       <option value="1">1</option>
-       <option value="1">1</option>
-       <option value="1">1</option>
-       </select><a href="javascript:;">跳转</a>
-       </li>
-       <li>共 1/3 页</li>
-   </ul><!--分页-->
+       <li><a href="<?php echo add_query_arg(array('page' => $count_of_page));?>">尾页</a></li>
+   </ul><!-- 分页 -->
    
  </div><!--右边内容页-->

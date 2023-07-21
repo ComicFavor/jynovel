@@ -1,8 +1,6 @@
 <ul class="list left">
   <?php
-
-
-
+    $current_category = get_queried_object();
     $master_category = get_parent_category_in_category_page();
     $sub_categories = get_categories(array(
       'parent' => $master_category->term_id,
