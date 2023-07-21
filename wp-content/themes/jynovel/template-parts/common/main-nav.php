@@ -10,7 +10,7 @@
 			));
 
 			$current_category = get_queried_object();
-			if(is_home() == false)
+			if(is_category() == true)
 				$master_category = get_parent_category_in_category_page();
 		?>			
 

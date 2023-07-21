@@ -33,13 +33,36 @@
    
    <ul class="page clear">
         <li><a href="<?php echo add_query_arg(array('page' => 1));?>">首页</a></li>
-        <li>上一页</li>
-        <li><a href="javascript:;" class="thispage">1</a></li>
-        <li><a href="javascript:;">2</a></li>
-        <li><a href="javascript:;">3</a></li>
-        <li><a href="javascript:;">4</a></li>
-        <li><a href="javascript:;">5</a></li>
-        <li><a href="javascript:;">下一页</a></li>
+        <?php 
+          if ($page > 1) {
+        ?>
+          <li><a href="<?php echo add_query_arg(array('page' => $page - 1));?>">上一页</a></li>
+        <?php 
+          }
+        ?>
+
+        <?php 
+          $index = $page;
+          while($index <= $count_of_page && $index < $page + 5) {
+            if ($index == $page) {
+        ?>
+              <li><a href="javascript:;" class="thispage"><?php echo $index?></a></li>
+        <?php
+            } else {
+        ?>
+              <li><a href="<?php echo add_query_arg(array('page' => $index));?>"><?php echo $index?></a></li>
+        <?php 
+            }
+            $index++;
+          }
+        ?>  
+        <?php 
+          if ($count_of_page != $page) {
+        ?>
+          <li><a href="<?php echo add_query_arg(array('page' => $page + 1));?>">下一页</a></li>
+        <?php 
+          }
+        ?>
        <li><a href="<?php echo add_query_arg(array('page' => $count_of_page));?>">尾页</a></li>
    </ul><!-- 分页 -->
    

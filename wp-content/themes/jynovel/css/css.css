@@ -99,7 +99,7 @@ footer a{color:#F00;}
 .list2 .three ul{margin:10px 20px 30px;}
 /*------------------ 右边侧栏-----------------------------*/
 
-.page{ text-align:center; width:auto;margin-top:20px; padding-left:15%; height:26px; line-height:26px;}
+.page{ text-align:center; width:auto;margin-top:20px; padding-left:60%; height:26px; line-height:26px;}
 .page li{margin:0 5px;color:#666; height:100%; float:left;}
 .page li.tz select{margin-right:5px; padding:2px 0px; border:none; border:1px solid #e7ecf0;}
 .page li a{ display:block; border:1px solid #e7ecf0;padding:0px 6px; height:100%;}
