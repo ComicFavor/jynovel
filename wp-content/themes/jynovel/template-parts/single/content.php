@@ -27,10 +27,13 @@
   </div>
   <div class="prenext">
     <?php 
-      // $prev_post = get_prev_charpter($post);
-      // $next_post = get_next_charpter($post);
-      $prev_post = get_previous_post(true, "", "post_tag");
-      $next_post = get_next_post(true, "", "post_tag");
+      // 为什么要重新获取post，因为get_prev_charpter使用wp_query后，post发生了变化
+      $post = get_queried_object();
+      $prev_post = get_prev_charpter($post);
+      $post = get_queried_object();
+      $next_post = get_next_charpter($post);
+      //$prev_post = get_previous_post(true, "", "post_tag");
+      //$next_post = get_next_post(true, "", "post_tag");
 
       if ($prev_post) {
     ?>

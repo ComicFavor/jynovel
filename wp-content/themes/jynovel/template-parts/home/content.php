@@ -37,6 +37,7 @@
         $post_title = $post->post_title;
         $post_last_modified_time = $post->post_modified;
         $category = get_category_by_tag($tag);
+        
         $master_category = get_parent_category($category);
         ?>
         <li><a href="<?php echo $tag_url ?>"><span class="icon_span"></span></a>

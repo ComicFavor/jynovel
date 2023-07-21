@@ -1,6 +1,6 @@
 <ul class="fixed">
-    <li class="icon" title="展开目录"></li>
-    <li class="icon" title="我要评论"></li>
+    <li class="icon hide" title="展开目录"></li>
+    <li class="icon hide" title="我要评论"></li>
     <li class="icon" title="上一章"></li>
     <li class="icon" title="下一章"></li>
     <li class="icon" title="回到顶部"></li>

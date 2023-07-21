@@ -93,7 +93,7 @@ function get_parent_category_in_category_page() : WP_Term {
     $master_category = get_term($master_category_id);
   else
     $master_category = $current_category;
-    
+
   return $master_category;
 }
 
@@ -177,7 +177,7 @@ function get_category_by_tag (WP_Term $tag ) {
 }
 
 // 获取父级分类
-function get_parent_category(WP_Term $category): WP_Term {
+function get_parent_category(WP_Term $category) {
   return get_category($category->parent);
 }
 
@@ -191,15 +191,25 @@ function get_tag_post_count_by_id( $tag_id ) {
 function get_prev_charpter(WP_Post $post) {
   $args=array(
     'tag' => $post->tags_input[0],
-    'showposts'=>1, //文章数量,
+    'posts_per_page'=> -1, //所有文章,
     'orderby' => 'ID',
     'order' => 'DESC'
   );
+
+  $is_prev = false;
   $my_query = new WP_Query($args);
   if( $my_query->have_posts() ) {
     while ($my_query->have_posts()) {
       $my_query->the_post();
-      return get_post();
+      $p = get_post();
+
+      if ($is_prev) {
+        return $p;
+      }
+
+      if ($p->ID == $post->ID) {
+        $is_prev = true;
+      }
     }
   } 
   wp_reset_query(); 
@@ -208,15 +218,24 @@ function get_prev_charpter(WP_Post $post) {
 function get_next_charpter(WP_Post $post) {
   $args=array(
     'tag' => $post->tags_input[0],
-    'showposts'=>1, //文章数量,
+    'posts_per_page'=> -1, //所有文章,
     'orderby' => 'ID',
     'order' => 'ASC'
   );
+  $is_next = false;
   $my_query = new WP_Query($args);
   if( $my_query->have_posts() ) {
     while ($my_query->have_posts()) {
       $my_query->the_post();
-      return get_post();
+      $p = get_post();
+
+      if ($is_next) {
+        return $p;
+      }
+
+      if ($p->ID == $post->ID) {
+        $is_next = true;
+      }
     }
   } 
   wp_reset_query(); 
