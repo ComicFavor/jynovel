@@ -5,10 +5,7 @@
       <?php 
         $tag = get_queried_object();
         $category = get_category_by_tag($tag);
-        $master_category = get_parent_category($category);
       ?>
-      <a href="<?php echo get_term_link($master_category->term_id) ?>"><?php echo $master_category->name ?></a>
-       > 
       <a href="<?php echo get_term_link($category->term_id) ?>"><?php echo $category->name ?></a>
       > 
       <?php echo $tag->name ?>
@@ -25,12 +22,33 @@
       <p class="left" style="width:580px; overflow:hidden;"><?php echo $tag->description ?></p>
      </div>
      <div class="fx clear">
-         <div class="bdsharebuttonbox right"><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more" data-cmd="more"></a></div>
-             <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-         </script>
-         <p class="dsf">
-         <b> 分享到:</b>
-         </p>
+        <div class="bdsharebuttonbox right">
+          <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+          <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+          <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+          <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+          <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+          <a href="#" class="bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+          window._bd_share_config = {
+            "common": {
+              "bdSnsKey": {},
+              "bdText": "",
+              "bdMini": "2",
+              "bdPic": "",
+              "bdStyle": "0",
+              "bdSize": "16"
+            },
+            "share": {}
+          };
+          with(document) 0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+        </script>
+        <p class="dsf">
+          <b> 分享到:</b>
+        </p>
      </div>
      <ul class="clear info_1">
      <p>基本信息</p>

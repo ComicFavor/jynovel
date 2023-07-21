@@ -1,15 +1,11 @@
 <div class="con left">
    <div class="position">
-    <a href="<?php echo get_home_url() ?>">首页</a>
+    <a href="<?php echo get_home_url() ?>" class="acative">首页</a>
     <?php 
       $current_category = get_queried_object();
-      $master_category_id = $current_category->parent;
-      $master_category = get_term($master_category_id);
     ?>
      > 
-    <a href="#"><?php echo $master_category->name ?></a>
-     > 
-    <a href="<?php get_term_link($current_category->term_id) ?>" class="acative"><?php echo $current_category->name ?></a></div>
+    <?php echo $current_category->name ?></div>
    <ul class="con_list clear">
     <?php 
       $count_of_page = get_page_of_tags_by_category($current_category);

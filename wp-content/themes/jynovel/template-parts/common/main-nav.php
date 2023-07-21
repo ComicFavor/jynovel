@@ -1,23 +1,41 @@
 <nav class="clear">
 	<ul class="nav_1 clear">
+	<?php 
+			$categories = get_categories(array(
+				'hide_empty' => 0,
+				'parent' => 0,
+				'meta_key' => 'display_order',
+				'orderby' => 'meta_value_num',
+				'order' => 'ASC'
+			));
+
+			$current_category = get_queried_object();
+			if(is_home() == false)
+				$master_category = get_parent_category_in_category_page();
+		?>			
+
 		<div class="active"></div>
 		<li><a href="<?php echo get_home_url() ?>">首页</a></li>
 
 		<?php 
-			$categories = get_categories(array(
-				'hide_empty' => 0,
-				'parent' => 0
-			));
 			if ($categories) {
 				foreach ($categories as $category) {
-					if ($category->name == '未分类') continue;
+					if ($category->term_id == $master_category->term_id) {
+						echo '<script>
+							$(function(){
+								$("#li_'. $category->term_id .'").click();	
+							});
+						</script>';
+					}
 		?>					
-				<!-- <li><a href="<?php echo get_category_link($category->term_id) ?>"><?php echo $category->name ?></a> -->
-				<li><a href="#"><?php echo $category->name ?></a>
+				<li id="li_<?php echo $category->term_id ?>"><a href="javascript:;"><?php echo $category->name ?></a>
 		<?php 		
 				$sub_categories = get_categories(array(
 					'hide_empty' => 0,
-					'parent' => $category->term_id
+					'parent' => $category->term_id,
+					'meta_key' => 'display_order',
+					'orderby' => 'meta_value_num',
+					'order' => 'ASC'
 				));
 
 				if ($sub_categories) {

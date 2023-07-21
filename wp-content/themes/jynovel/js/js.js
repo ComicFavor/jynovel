@@ -42,7 +42,8 @@ $(document).ready(function(e) {
 				 var num=Math.abs(i-now);
                  $(this).children('a').css('color','#fff');
 				 $(this).siblings('li').children('a').css('color','#333');
-				 active.animate({left:Li_w*i},num*260-num*100);
+				//  active.animate({left:Li_w*i},num*260-num*100);
+				active.animate({left:Li_w*i},0);
 				 now=i;
 				}
 			});

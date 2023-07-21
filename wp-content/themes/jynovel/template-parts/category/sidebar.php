@@ -4,7 +4,10 @@
     $master_category = get_parent_category_in_category_page();
     $sub_categories = get_categories(array(
       'parent' => $master_category->term_id,
-      'hide_empty' => 0
+      'hide_empty' => 0,
+      'meta_key' => 'display_order',
+      'orderby' => 'meta_value_num',
+      'order' => 'ASC'
     ));
   ?>
 

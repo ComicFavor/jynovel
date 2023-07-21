@@ -67,6 +67,7 @@ nav .nav_1 li ul { display:none; position: absolute;width:100%; border-top:none;
 nav .nav_1 li ul li{ clear:both; font-size:14px; height:35px; line-height:40px; width:100%;text-align:center; border:1px  solid #CECBCB;border-top:none;
 background:#fff; background:rgba(255,255,255,0.5); z-index:3;}
 nav .nav_1 .active{ background:#16A1E7; position:absolute;left:0px; height:0px;width:10%; height:100%;}
+nav .nav_1 .active_default{ background:#fff; position:absolute;left:0px; height:0px;width:10%; height:100%;}
 nav .nav_1>li:nth-of-type(1) a{color:#fff;}
 nav .nav_1 li ul li:last-child{ padding-bottom:5px; height:40px;}
 nav .nav_1 .submission{ float:right; height:40px; /* border:1px solid #FEAC8B;width:150px;*/ border-radius:5px;  padding:5px 0px 0px 25px; margin-top:5px; }
