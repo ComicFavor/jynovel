@@ -6,10 +6,11 @@
     <p>一起阅读，共同鉴赏</p>
   </div>
   <div class="search left">
-    <form action="" method="get">
+    <!-- <form action="" method="get">
       <input type="text" value="" placeholder="请输入书名或作者名称">
       <input type="submit" value="搜索">
-    </form>
+    </form> -->
+    <?php get_search_form() ?>
     <p class="left">
       <span>热门推荐：</span>
       <a href="javascript:;">原来你还在这里</a>
