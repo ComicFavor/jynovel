@@ -14,19 +14,11 @@
     <p class="left">
       <span>热门推荐：</span>
       <?php 
-        $count = 0;
-        $tags = get_tags();
+        $tags = get_suggest_tags(4);
         foreach ($tags as $tag) {
-          $recommended = get_field('recommended', 'post_tag_'.$tag->term_id);
-          if ($recommended) {
-            
-    ?>
-            <a href="<?php echo get_term_link($tag->term_id) ?>"><?php echo $tag->name ?></a>
-    <?php
-            $count++;
-            if($count == 4) break;
-          }
-          
+      ?>
+          <a href="<?php echo get_term_link($tag->term_id) ?>"><?php echo $tag->name ?></a>
+      <?php
         }
       
       ?>

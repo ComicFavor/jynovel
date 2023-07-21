@@ -13,7 +13,7 @@
       > 
       <?php echo $tag->name ?>
   </div>
-  <h3>文化苦旅</h3>
+  <h3><?php echo $tag->name?></h3>
 
  <ul class="tab clear">
      <li class="active"><a href="#">简介</a></li>
@@ -34,12 +34,8 @@
      </div>
      <ul class="clear info_1">
      <p>基本信息</p>
-     <li><span>作 &nbsp; &nbsp; &nbsp; 者：</span>余秋雨</li>
-     <li><span>出 &nbsp;版 &nbsp;社：</span>长江文艺出版社</li>
-     <li><span>版 &nbsp;权 &nbsp;方：</span>北京时代华语图书股份有限公司</li>
-     <li><span>出版时间：</span>2014-04-01</li>
-     <li><span>分 &nbsp; &nbsp; &nbsp; 类：</span>文学艺术 散文随笔</li>
-     <li><span>评 &nbsp; &nbsp; &nbsp; 价：</span>956人评论 <samp>|</samp> 138888人在读</li>
+     <li><span>作 &nbsp; &nbsp; &nbsp; 者：</span><?php echo get_author_by_tag($tag)?></li>
+     <li><span>分 &nbsp; &nbsp; &nbsp; 类：</span><?php echo $category->name ?></li>
      </ul>
   </div><!--简介介绍-->
   

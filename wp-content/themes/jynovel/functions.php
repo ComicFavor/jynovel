@@ -101,9 +101,11 @@ function get_parent_category_in_category_page() : WP_Term {
 function get_page_of_tags_by_category($category_name) {
   $tags = get_tags(array(
     'meta_query' => array(
-      'key' => 'category',
-      'value' => $category_name,
-      'compare' => '=='
+      'relation' => 'AND',
+      array(
+        'key' => 'category',
+        'value' => $category_name
+      )
     )
   ));
 
@@ -118,9 +120,11 @@ function get_tags_by_category_paging($category_name, $offset) {
     'number' => 10, //每页数量
     'offset' => $offset,
     'meta_query' => array(
-      'key' => 'category',
-      'value' => $category_name,
-      'compare' => '=='
+      'relation' => 'AND',
+      array(
+        'key' => 'category',
+        'value' => $category_name
+      )
     )
   ));
 
@@ -131,27 +135,71 @@ function get_cover_url (WP_Term $tag) {
   return get_field('cover_url', 'post_tag_' . $tag->term_id);
 }
 
-function get_suggest_posts () {
-  $args = array(
-    'showposts'=>1, //文章数量
-    'caller_get_posts'=>1
-  );
+function get_latest_tags_in_category (WP_Term $category, int $count) {
+  $tags = get_tags(array(
+    'meta_query' => array(
+      'relation' => 'AND',
+      array(
+        'key' => 'category',
+        'value' => $category->name
+      )
+    )
+  ));
 
-  $my_query = new WP_Query($args);
+  $tags_id_with_time = array();
+  foreach($tags as $tag) {
+    $tags_id_with_time[$tag->term_id] = get_latest_post_by_tag($tag->name)->post_modified;
+  }
 
-  if( $my_query->have_posts() ) {
-    while ($my_query->have_posts()) {
-      $my_query->the_post();
-      return get_post();
-    }
-  } 
+  arsort($tags_id_with_time);
+  $latest_tags_id = array_slice($tags_id_with_time, 0, $count, true);
   
-  wp_reset_query();
+  $latest_tags = array();
+  foreach($latest_tags_id as $tag_id=>$tag_time) {
+    $latest_tags[] = get_term($tag_id);
+  }
+
+  return $latest_tags;
 }
 
-function get_latest_post_by_tag ( $tag ) {
+function get_latest_tags (int $count) {
+  $tags = get_tags();
+  $tags_id_with_time = array();
+  foreach($tags as $tag) {
+    $tags_id_with_time[$tag->term_id] = get_latest_post_by_tag($tag->name)->post_modified;
+  }
+
+  arsort($tags_id_with_time);
+  $latest_tags_id = array_slice($tags_id_with_time, 0, $count, true);
+  
+  $latest_tags = array();
+  foreach($latest_tags_id as $tag_id=>$tag_time) {
+    $latest_tags[] = get_term($tag_id);
+  }
+
+  return $latest_tags;
+}
+
+function get_suggest_tags (int $count) {
+  $tags = get_tags(array(
+    'orderby' => 'name',
+    'order' => 'ASC',
+    'number' => $count,
+    'meta_query' => array(
+      'relation' => 'AND',
+      array(
+        'key' => 'recommended',
+        'value' => true
+      )
+    )
+  ));
+  
+  return $tags;
+}
+
+function get_latest_post_by_tag ( $tag_name ) {
   $args=array(
-    'tag' => $tag,
+    'tag' => $tag_name,
     'showposts'=>1, //文章数量
     'caller_get_posts'=>1
   );
@@ -164,6 +212,10 @@ function get_latest_post_by_tag ( $tag ) {
     }
   } 
   wp_reset_query(); 
+}
+
+function get_author_by_tag (WP_Term $tag ) {
+  return get_field('author', 'post_tag_' . $tag->term_id);
 }
 
 function get_category_by_tag (WP_Term $tag ) {

@@ -3,7 +3,7 @@
     <h3>编者推荐</h3>
     <ul class="clear">
       <?php 
-        $tags = get_tags();
+        $tags = get_suggest_tags(8);
         foreach ($tags as $tag) {
           $tag_name = $tag->name;
           $tag_url = get_tag_link( $tag );
@@ -27,7 +27,7 @@
     <h3>最新上架</h3>
     <ul class="clear">
       <?php
-      $tags = get_tags();
+      $tags = get_latest_tags(20);
       foreach ($tags as $tag) {
         $tag_name = $tag->name;
         $tag_url = get_tag_link($tag);
