@@ -3,23 +3,23 @@
      当前位置：<a href="<?php echo get_home_url()?>">首页</a>
       > 
       <?php 
-        $tag = get_queried_object();
-        $category = get_category_by_tag($tag);
+        $book = get_queried_object();
+        $category = get_category_by_book($book);
       ?>
       <a href="<?php echo get_term_link($category->term_id) ?>"><?php echo $category->name ?></a>
       > 
-      <?php echo $tag->name ?>
+      <?php echo $book->name ?>
   </div>
-  <h3><?php echo $tag->name?></h3>
+  <h3><?php echo $book->name?></h3>
 
  <ul class="tab clear">
      <li class="active"><a href="#">简介</a></li>
-     <li><a href="#">章节目录<b>(<?php echo get_tag_post_count_by_id($tag->term_id)?>)</b></a></li>
+     <li><a href="#">章节目录<b>(<?php echo get_book_post_count_by_id($book->term_id)?>)</b></a></li>
  </ul>
   <div class="tab_1">
     <div class="info clear">
-     <img src="<?php echo get_cover_url($tag) ?>" class="left" style="margin-right:20px;width:150px;"> 
-      <p class="left" style="width:580px; overflow:hidden;"><?php echo $tag->description ?></p>
+     <img src="<?php echo get_cover_url($book) ?>" class="left" style="margin-right:20px;width:150px;"> 
+      <p class="left" style="width:580px; overflow:hidden;"><?php echo $book->description ?></p>
      </div>
      <div class="fx clear">
         <div class="bdsharebuttonbox right">
@@ -52,26 +52,32 @@
      </div>
      <ul class="clear info_1">
      <p>基本信息</p>
-     <li><span>作 &nbsp; &nbsp; &nbsp; 者：</span><?php echo get_author_by_tag($tag)?></li>
+     <li><span>作 &nbsp; &nbsp; &nbsp; 者：</span><?php echo get_author_by_book($book)?></li>
      <li><span>分 &nbsp; &nbsp; &nbsp; 类：</span><?php echo $category->name ?></li>
      </ul>
   </div><!--简介介绍-->
   
   <div class="tab_1">
-     <div class="tit">章节目录<b>(<?php echo get_tag_post_count_by_id($tag->term_id)?>)</b></div>
+     <div class="tit">章节目录<b>(<?php echo get_book_post_count_by_id($book->term_id)?>)</b></div>
      <div class="info_1">
          <ul class="clear">
           <?php 
-            $tag = get_queried_object();
+            $book = get_queried_object();
             $args=array(
-              'tag_id' => $tag->term_id,
-              'posts_per_page' => -1,
+              'tax_query' => array(
+                'taxonomy' => 'book',
+                'field' => 'term_id',
+                'terms' => $book->term_id
+          
+              ),
+              'posts_per_page'=> 2, //所有文章,
               'orderby' => 'ID',
               'order' => 'ASC'
             );
             $my_query = new WP_Query($args);
             if( $my_query->have_posts() ) {
               while ($my_query->have_posts()) {
+                
                 $my_query->the_post();
                 
           ?>
@@ -79,6 +85,8 @@
           <?php 
               }
             } 
+
+            wp_reset_query(); 
           ?>
 
 

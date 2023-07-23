@@ -14,7 +14,7 @@
     <p class="left">
       <span>热门推荐：</span>
       <?php 
-        $tags = get_suggest_tags(4);
+        $tags = get_suggest_books(4);
         foreach ($tags as $tag) {
       ?>
           <a href="<?php echo get_term_link($tag->term_id) ?>"><?php echo $tag->name ?></a>

@@ -8,7 +8,7 @@
     <?php echo $current_category->name ?></div>
    <ul class="con_list clear">
     <?php 
-      $count_of_page = get_page_of_tags_by_category($current_category);
+      $count_of_page = get_page_of_books_by_category($current_category);
 
       $url = add_query_arg(array('page' => 1));
 
@@ -16,7 +16,7 @@
 
       if(!$page) $page = 1;
 
-      $tags = get_tags_by_category_paging($current_category->name, (int)$page - 1);
+      $tags = get_books_by_category_paging($current_category->name, (int)$page - 1);
       if($tags) {
         foreach($tags as $tag) {
     ?> 

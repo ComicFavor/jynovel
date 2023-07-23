@@ -4,12 +4,12 @@
       <div class="notice">
           <ul>
             <?php
-              $tag = get_queried_object();
-              $category = get_category_by_tag($tag);
-              $tags = get_latest_tags_in_category($category, 10);
-              foreach($tags as $tag) {
+              $book = get_queried_object();
+              $category = get_category_by_book($book);
+              $books = get_latest_books_in_category($category, 10);
+              foreach($books as $book) {
             ?>    
-                <li><a href="<?php echo get_term_link($tag->term_id)?>"><?php echo $tag->name?></a></li>
+                <li><a href="<?php echo get_term_link($book->term_id)?>"><?php echo $book->name?></a></li>
             <?php
               }
             ?>

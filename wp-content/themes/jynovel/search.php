@@ -27,8 +27,8 @@ get_template_part( 'template-parts/common/main-nav' )
             foreach($all_tag_name as $tag_name) {
                 $tag = get_term_by('name', $tag_name, 'post_tag');
                 $tag_url = get_term_link($tag->term_id);
-                $category = get_category_by_tag($tag);
-                $post = get_latest_post_by_tag($tag_name);
+                $category = get_category_by_book($tag);
+                $post = get_latest_post_by_book($tag_name);
                 $post_last_modified_time = $post->post_modified;
                 
         ?>

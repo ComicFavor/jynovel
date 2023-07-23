@@ -98,8 +98,9 @@ function get_parent_category_in_category_page() : WP_Term {
 }
 
 // 根据分类获取标签
-function get_page_of_tags_by_category($category_name) {
-  $tags = get_tags(array(
+function get_page_of_books_by_category($category_name) {
+  $books = get_terms(array(
+    'taxonomy' => 'book',
     'meta_query' => array(
       'relation' => 'AND',
       array(
@@ -109,12 +110,13 @@ function get_page_of_tags_by_category($category_name) {
     )
   ));
 
-  return floor(count($tags) / 10) + 1;
+  return floor(count($books) / 10) + 1;
 } 
 
 // 根据分类获取标签
-function get_tags_by_category_paging($category_name, $offset) {
-  $tags = get_tags(array(
+function get_books_by_category_paging($category_name, $offset) {
+  $books = get_terms(array(
+    'taxonomy' => 'book',
     'orderby' => 'name',
     'order' => 'ASC',
     'number' => 10, //每页数量
@@ -128,15 +130,16 @@ function get_tags_by_category_paging($category_name, $offset) {
     )
   ));
 
-  return $tags;
+  return $books;
 } 
 
-function get_cover_url (WP_Term $tag) {
-  return get_field('cover_url', 'post_tag_' . $tag->term_id);
+function get_cover_url (WP_Term $book) {
+  return get_field('cover_url', 'book_' . $book->term_id);
 }
 
-function get_latest_tags_in_category (WP_Term $category, int $count) {
-  $tags = get_tags(array(
+function get_latest_books_in_category (WP_Term $category, int $count) {
+  $books = get_terms(array(
+    'taxonomy' => 'book',
     'meta_query' => array(
       'relation' => 'AND',
       array(
@@ -146,42 +149,45 @@ function get_latest_tags_in_category (WP_Term $category, int $count) {
     )
   ));
 
-  $tags_id_with_time = array();
-  foreach($tags as $tag) {
-    $tags_id_with_time[$tag->term_id] = get_latest_post_by_tag($tag->name)->post_modified;
+  $books_id_with_time = array();
+  foreach($books as $book) {
+    $books_id_with_time[$book->term_id] = get_latest_post_by_book($book->name)->post_modified;
   }
 
-  arsort($tags_id_with_time);
-  $latest_tags_id = array_slice($tags_id_with_time, 0, $count, true);
+  arsort($books_id_with_time);
+  $latest_books_id = array_slice($books_id_with_time, 0, $count, true);
   
-  $latest_tags = array();
-  foreach($latest_tags_id as $tag_id=>$tag_time) {
-    $latest_tags[] = get_term($tag_id);
+  $latest_books = array();
+  foreach($latest_books_id as $book_id=>$book_time) {
+    $latest_books[] = get_term($book_id);
   }
 
-  return $latest_tags;
+  return $latest_books;
 }
 
-function get_latest_tags (int $count) {
-  $tags = get_tags();
-  $tags_id_with_time = array();
-  foreach($tags as $tag) {
-    $tags_id_with_time[$tag->term_id] = get_latest_post_by_tag($tag->name)->post_modified;
+function get_latest_books (int $count) {
+  $books = get_terms(array(
+    'taxonomy' => 'book'
+  ));
+  $books_id_with_time = array();
+  foreach($books as $book) {
+    $books_id_with_time[$book->term_id] = get_latest_post_by_book($book->name)->post_modified;
   }
 
-  arsort($tags_id_with_time);
-  $latest_tags_id = array_slice($tags_id_with_time, 0, $count, true);
+  arsort($books_id_with_time);
+  $latest_books_id = array_slice($books_id_with_time, 0, $count, true);
   
-  $latest_tags = array();
-  foreach($latest_tags_id as $tag_id=>$tag_time) {
-    $latest_tags[] = get_term($tag_id);
+  $latest_books = array();
+  foreach($latest_books_id as $book_id=>$book_time) {
+    $latest_books[] = get_term($book_id);
   }
 
-  return $latest_tags;
+  return $latest_books;
 }
 
-function get_suggest_tags (int $count) {
-  $tags = get_tags(array(
+function get_suggest_books (int $count) {
+  $books = get_terms(array(
+    'taxonomy' => 'book',
     'orderby' => 'name',
     'order' => 'ASC',
     'number' => $count,
@@ -194,12 +200,17 @@ function get_suggest_tags (int $count) {
     )
   ));
   
-  return $tags;
+  return $books;
 }
 
-function get_latest_post_by_tag ( $tag_name ) {
+function get_latest_post_by_book ( $book_name ) {
   $args=array(
-    'tag' => $tag_name,
+    'tax_query' => array(
+      'taxonomy' => 'book',
+      'field' => 'name',
+      'terms' => $book_name
+
+    ),
     'showposts'=>1, //文章数量
     'caller_get_posts'=>1
   );
@@ -214,12 +225,13 @@ function get_latest_post_by_tag ( $tag_name ) {
   wp_reset_query(); 
 }
 
-function get_author_by_tag (WP_Term $tag ) {
-  return get_field('author', 'post_tag_' . $tag->term_id);
+function get_author_by_book (WP_Term $book ) {
+  return get_field('author', 'book_' . $book->term_id);
 }
 
-function get_category_by_tag (WP_Term $tag ) {
-  $category_name = get_field('category', 'post_tag_' . $tag->term_id);
+function get_category_by_book (WP_Term $book ) {
+  $category_name = get_field('category', 'book_' . $book->term_id);
+  
   return get_term_by('name', $category_name, 'category');
 }
 
@@ -229,15 +241,20 @@ function get_parent_category(WP_Term $category) {
 }
 
 // 获取小说章数
-function get_tag_post_count_by_id( $tag_id ) {
-  $tag = get_term_by( 'id', $tag_id, 'post_tag' );
- _make_cat_compat( $tag );
-  return $tag->count;
+function get_book_post_count_by_id( $book_id ) {
+  $book = get_term_by( 'id', $book_id, 'book' );
+ _make_cat_compat( $book );
+  return $book->count;
 }
 
 function get_prev_charpter(WP_Post $post) {
   $args=array(
-    'tag' => $post->tags_input[0],
+    'tax_query' => array(
+      'taxonomy' => 'book',
+      'field' => 'name',
+      'terms' => $post->tags_input[0]
+
+    ),
     'posts_per_page'=> -1, //所有文章,
     'orderby' => 'ID',
     'order' => 'DESC'
@@ -264,7 +281,12 @@ function get_prev_charpter(WP_Post $post) {
 
 function get_next_charpter(WP_Post $post) {
   $args=array(
-    'tag' => $post->tags_input[0],
+    'tax_query' => array(
+      'taxonomy' => 'book',
+      'field' => 'name',
+      'terms' => $post->tags_input[0]
+
+    ),
     'posts_per_page'=> -1, //所有文章,
     'orderby' => 'ID',
     'order' => 'ASC'
