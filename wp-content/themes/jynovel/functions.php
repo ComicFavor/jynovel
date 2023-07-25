@@ -230,9 +230,9 @@ function get_author_by_book (WP_Term $book ) {
 }
 
 function get_category_by_book (WP_Term $book ) {
-  $category_name = get_field('category', 'book_' . $book->term_id);
+  $category_id = get_field('category', 'book_' . $book->term_id);
   
-  return get_term_by('name', $category_name, 'category');
+  return get_term_by('term_id', $category_id, 'category');
 }
 
 // 获取父级分类
