@@ -114,7 +114,7 @@ function get_page_of_books_by_category($category_name) {
 } 
 
 // 根据分类获取标签
-function get_books_by_category_paging($category_name, $offset) {
+function get_books_by_category_paging($category_id, $offset) {
   $books = get_terms(array(
     'taxonomy' => 'book',
     'orderby' => 'name',
@@ -125,7 +125,7 @@ function get_books_by_category_paging($category_name, $offset) {
       'relation' => 'AND',
       array(
         'key' => 'category',
-        'value' => $category_name
+        'value' => $category_id
       )
     )
   ));
@@ -144,7 +144,7 @@ function get_latest_books_in_category (WP_Term $category, int $count) {
       'relation' => 'AND',
       array(
         'key' => 'category',
-        'value' => $category->name
+        'value' => $category->term_id
       )
     )
   ));
@@ -231,7 +231,6 @@ function get_author_by_book (WP_Term $book ) {
 
 function get_category_by_book (WP_Term $book ) {
   $category_id = get_field('category', 'book_' . $book->term_id);
-  
   return get_term_by('term_id', $category_id, 'category');
 }
 

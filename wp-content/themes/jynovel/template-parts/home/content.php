@@ -7,12 +7,6 @@
         foreach ($books as $book) {
           $book_name = $book->name;
           $book_url = get_term_link( $book );
-          $post=get_latest_post_by_book($book_name);
-          $author = get_the_author_meta('display_name', $post->post_author);
-          $post_url = get_post_permalink($post);
-          $post_title = $post->post_title;
-          $category = get_category_by_book($book);
-          $master_category = get_parent_category($category);
       ?>
         <li><a href="<?php echo $book_url?>"><img src="<?php echo get_cover_url($book) ?>"></a>
           <p><a href="<?php echo $book_url?>"><?php echo $book_name ?></a></p>
@@ -37,7 +31,6 @@
         $post_title = $post->post_title;
         $post_last_modified_time = $post->post_modified;
         $category = get_category_by_book($book);
-        
         $master_category = get_parent_category($category);
         ?>
         <li><a href="<?php echo $book_url ?>"><span class="icon_span"></span></a>

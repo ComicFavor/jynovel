@@ -16,13 +16,14 @@
 
       if(!$page) $page = 1;
 
-      $tags = get_books_by_category_paging($current_category->name, (int)$page - 1);
-      if($tags) {
-        foreach($tags as $tag) {
+      $books = get_books_by_category_paging($current_category->term_id, (int)$page - 1);
+      
+      if($books) {
+        foreach($books as $book) {
     ?> 
         <li class="ease">
-          <a href="<?php echo get_term_link($tag->term_id) ?>"><img src="<?php echo get_cover_url($tag) ?>"></a>
-          <p class="s_n"><a href="<?php echo get_term_link($tag->term_id) ?>"><?php echo $tag->name ?></a></p>
+          <a href="<?php echo get_term_link($book->term_id) ?>"><img src="<?php echo get_cover_url($book) ?>"></a>
+          <p class="s_n"><a href="<?php echo get_term_link($book->term_id) ?>"><?php echo $book->name ?></a></p>
         </li>
     <?php 
         }

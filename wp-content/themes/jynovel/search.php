@@ -14,28 +14,28 @@ get_template_part( 'template-parts/common/main-nav' )
     </h3>
       <ul class="clear">
         <?php
-            $all_tag_name = array();
-            while (have_posts()) {
-                the_post();
-                $post = get_post();
-                $tag_name = $post->tags_input[0];
-                if (in_array($tag_name, $all_tag_name) == false) {
-                    $all_tag_name[] = $tag_name;
-                }
-            }
-
-            foreach($all_tag_name as $tag_name) {
-                $tag = get_term_by('name', $tag_name, 'post_tag');
-                $tag_url = get_term_link($tag->term_id);
-                $category = get_category_by_book($tag);
-                $post = get_latest_post_by_book($tag_name);
+            $args = array(
+                'taxonomy'      => array( 'book' ), // taxonomy name
+                'orderby'       => 'id', 
+                'order'         => 'ASC',
+                'hide_empty'    => true,
+                'fields'        => 'all',
+                'name__like'    => get_search_query()
+            ); 
+            
+            $books = get_terms( $args );
+            
+            foreach($books as $book) {
+                $book_url = get_term_link($book->term_id);
+                $category = get_category_by_book($book);
+                $post = get_latest_post_by_book($book_name);
                 $post_last_modified_time = $post->post_modified;
                 
         ?>
                 <li>
-                    <a href="<?php echo $tag_url?>"><span class="icon_span"></span></a>
+                    <a href="<?php echo $book_url?>"><span class="icon_span"></span></a>
                     <a href="<?php echo get_category_link($category) ?>"><b>[ <?php echo $category->name ?> ]</b></a>
-                    <a href="<?php echo $tag_url?>"><strong><?php echo $tag->name ?></strong></a><time><?php echo $post_last_modified_time ?></time>
+                    <a href="<?php echo $book_url?>"><strong><?php echo $book->name ?></strong></a><time><?php echo $post_last_modified_time ?></time>
                 </li>
         <?php
             }

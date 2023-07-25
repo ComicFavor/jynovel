@@ -14,7 +14,7 @@
 
  <ul class="tab clear">
      <li class="active"><a href="#">简介</a></li>
-     <li><a href="#">章节目录<b>(<?php echo get_book_post_count_by_id($book->term_id)?>)</b></a></li>
+     <li><a href="#">章节目录<b>(<?php echo $book->count?>)</b></a></li>
  </ul>
   <div class="tab_1">
     <div class="info clear">
@@ -58,7 +58,7 @@
   </div><!--简介介绍-->
   
   <div class="tab_1">
-     <div class="tit">章节目录<b>(<?php echo get_book_post_count_by_id($book->term_id)?>)</b></div>
+     <div class="tit">章节目录<b>(<?php echo $book->count?>)</b></div>
      <div class="info_1">
          <ul class="clear">
           <?php 
