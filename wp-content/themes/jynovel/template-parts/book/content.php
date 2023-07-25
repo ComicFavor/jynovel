@@ -65,12 +65,14 @@
             $book = get_queried_object();
             $args=array(
               'tax_query' => array(
-                'taxonomy' => 'book',
-                'field' => 'term_id',
-                'terms' => $book->term_id
-          
+                'relation' => 'AND',
+                array(
+                  'taxonomy' => 'book',
+                  'field' => 'name',
+                  'terms' => $book->name
+                )
               ),
-              'posts_per_page'=> 2, //所有文章,
+              'posts_per_page'=> -1, //所有文章,
               'orderby' => 'ID',
               'order' => 'ASC'
             );
