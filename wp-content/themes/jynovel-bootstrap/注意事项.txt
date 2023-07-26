@@ -1,0 +1,22 @@
+1. 伪静态
+1.1在nginx.htaccess中添加规则
+
+# BEGIN WordPress
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+# END WordPress
+
+1.2在vhosts.conf中添加规则
+if (-f $request_filename/index.html){
+rewrite (.*) $1/index.html break;
+}
+if (-f $request_filename/index.php){
+rewrite (.*) $1/index.php;
+}
+if (!-f $request_filename){
+rewrite (.*) /index.php;
+}
