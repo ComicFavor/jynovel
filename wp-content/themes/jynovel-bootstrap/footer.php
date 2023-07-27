@@ -24,14 +24,9 @@
 			<div class="col-12 col-lg-auto mt-3 mt-lg-0">
 				<ul class="list-inline list-inline-dots mb-0">
 					<li class="list-inline-item">
-						Copyright &copy; 2022
-						<a href="." class="link-secondary">Tabler</a>.
-						All rights reserved.
-					</li>
-					<li class="list-inline-item">
-						<a href="<?php echo get_template_directory_uri(); ?>/changelog.html" class="link-secondary" rel="noopener">
-							v1.0.0-beta16
-						</a>
+						<span>
+							<?php esc_attr_e('Copyright ©', 'preference-lite'); ?> <?php esc_attr_e(date('Y')); ?> <a href="//www.yiqiread.com"><?php echo bloginfo('name') ?></a> <?php esc_attr_e(' All rights reserved.', 'preference-lite'); ?>
+						</span>
 					</li>
 				</ul>
 			</div>
