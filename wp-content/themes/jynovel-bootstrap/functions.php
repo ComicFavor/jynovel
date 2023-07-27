@@ -239,6 +239,17 @@ function get_parent_category(WP_Term $category) {
   return get_term_by('term_id', $category->parent, 'category');
 }
 
+// 获取子级分类
+function get_sub_categories(WP_Term $category) {
+  return get_categories(array(
+    'hide_empty' => 0,
+    'parent' => $category->term_id,
+    'meta_key' => 'display_order',
+    'orderby' => 'meta_value_num',
+    'order' => 'ASC'
+  ));
+}
+
 // 获取小说章数
 function get_book_post_count_by_id( $book_id ) {
   $book = get_term_by( 'id', $book_id, 'book' );
