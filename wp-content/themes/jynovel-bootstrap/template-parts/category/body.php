@@ -50,22 +50,30 @@
                 </div>    
               </div>
             </div>
-            <div class="card">
+            
+          </div>
+          <div class="col-12">
+          <div class="card">
                 <div class="card-body">
                   <ul class="pagination ">
-                    <li><a href="<?php echo add_query_arg(array('page' => 1));?>">首页</a></li>
                     <?php 
-                      if ($page > 1) {
-                    ?>
-                      <li class="page-item">
-                        <a class="page-link" href="<?php echo add_query_arg(array('page' => $page - 1));?>">
-                          <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
-                        </a>
-                      </li>
-                    <?php 
-                      }
-                    ?>
+                      $count_of_page = get_page_of_books_by_category($current_category);
+
+                      $url = add_query_arg(array('page' => 1));
+                
+                      $page = get_query_var('page');
+                
+                      if(!$page) $page = 1;
+                    ?>  
+
+                    <li class="page-item"><a class="page-link" href="<?php echo add_query_arg(array('page' => 1));?>">首页</a></li>
+                  
+                    <li class="page-item <?php if ($page == 1) echo "disabled"?>">
+                      <a class="page-link" href="<?php echo add_query_arg(array('page' => $page - 1));?>">
+                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
+                      </a>
+                    </li>
 
                     <?php 
                       $index = $page;
@@ -82,19 +90,13 @@
                         $index++;
                       }
                     ?>  
-                    <?php 
-                      if ($count_of_page != $page) {
-                    ?>
-                      <li class="page-item">
-                        <a class="page-link" href="<?php echo add_query_arg(array('page' => $page + 1));?>">
-                          <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>
-                        </a>
-                      </li>
-                    <?php 
-                      }
-                    ?>
-                  <li><a href="<?php echo add_query_arg(array('page' => $count_of_page));?>">尾页</a></li>
+                    <li class="page-item <?php if ($count_of_page == $page) echo "disabled"?>">
+                      <a class="page-link" href="<?php echo add_query_arg(array('page' => $page + 1));?>">
+                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>
+                      </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="<?php echo add_query_arg(array('page' => $count_of_page));?>">尾页</a></li>
                   </ul>
                 </div>
               </div>
