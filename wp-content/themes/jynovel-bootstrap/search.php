@@ -1,51 +1,37 @@
-<?php
-get_header();
-get_template_part( 'template-parts/common/main-nav' )
-?>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <?php wp_head(); ?>
+    <title><?php echo bloginfo('name') ?></title>
 
-<div class="box">
-<div class="box_2 box_con">
-      <h3>
-        <?php
-            echo '关于 【 ';
-            echo get_search_query();//输出您所搜索的文字
-            echo ' 】 的搜索结果';
-        ?>
-    </h3>
-      <ul class="clear">
-        <?php
-            $args = array(
-                'taxonomy'      => array( 'book' ), // taxonomy name
-                'orderby'       => 'id', 
-                'order'         => 'ASC',
-                'hide_empty'    => true,
-                'fields'        => 'all',
-                'name__like'    => get_search_query()
-            ); 
-            
-            $books = get_terms( $args );
-            
-            foreach($books as $book) {
-                $book_url = get_term_link($book->term_id);
-                $category = get_category_by_book($book);
-                $post = get_latest_post_by_book($book_name);
-                $post_last_modified_time = $post->post_modified;
-                
-        ?>
-                <li>
-                    <a href="<?php echo $book_url?>"><span class="icon_span"></span></a>
-                    <a href="<?php echo get_category_link($category) ?>"><b>[ <?php echo $category->name ?> ]</b></a>
-                    <a href="<?php echo $book_url?>"><strong><?php echo $book->name ?></strong></a><time><?php echo $post_last_modified_time ?></time>
-                </li>
-        <?php
-            }
-        ?>
-      </ul>
+    <!-- CSS files -->
+    <link href="<?php echo get_template_directory_uri(); ?>/dist/css/tabler.min.css?1668287865" rel="stylesheet"/>
+    <link href="<?php echo get_template_directory_uri(); ?>/dist/css/tabler-flags.min.css?1668287865" rel="stylesheet"/>
+    <link href="<?php echo get_template_directory_uri(); ?>/dist/css/tabler-payments.min.css?1668287865" rel="stylesheet"/>
+    <link href="<?php echo get_template_directory_uri(); ?>/dist/css/tabler-vendors.min.css?1668287865" rel="stylesheet"/>
+    <link href="<?php echo get_template_directory_uri(); ?>/dist/css/demo.min.css?1668287865" rel="stylesheet"/>
+    <style>
+      @import url('https://rsms.me/inter/inter.css');
+      :root {
+      	--tblr-font-sans-serif: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="<?php echo get_template_directory_uri(); ?>/dist/js/demo-theme.min.js?1668287865"></script>
+    <div class="page">
+      <!-- Navbar -->
+      <?php get_template_part("template-parts/common/main-nav") ?>
+      <div class="page-wrapper">
+        <?php get_template_part("template-parts/search/body") ?>  
+        <?php get_footer() ?>
+      </div>
     </div>
-</div>
-
-</main>
-
-<?php
-get_footer();
-?>
+    <!-- Tabler Core -->
+    <script src="<?php echo get_template_directory_uri(); ?>/dist/js/tabler.min.js?1668287865" defer></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/dist/js/demo.min.js?1668287865" defer></script>
+  </body>
+</html>
